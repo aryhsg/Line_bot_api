@@ -54,7 +54,7 @@ async def line_webhook_forwarder(request: Request):
     # 5. 立即回覆給 LINE 伺服器 (必須是 200 OK，使用 PlainTextResponse 確保回應乾淨)
     return PlainTextResponse("OK", status_code=200)
 
-@app.get("/")
+@app.get("/callback")
 def read_root():
     return {"status": "OK"}
 
