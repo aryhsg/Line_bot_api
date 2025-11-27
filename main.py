@@ -56,7 +56,7 @@ async def line_webhook_forwarder(request: Request):
 
 @app.get("/callback")
 def read_root():
-    return {"status": "OK"}
+    return PlainTextResponse("OK", status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
