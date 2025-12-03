@@ -10,10 +10,11 @@ app = FastAPI()
 
 # --- 從環境變數中讀取設定 ---
 N8N_WEBHOOK_URL = os.environ.get('N8N_WEBHOOK_URL')
+CLAWCLOUD_WEBHOOK_URL = os.environ.get("CLAWCLOUD_WEBHOOK_URL")
 SECURITY_TOKEN = os.environ.get('N8N_SECURITY_TOKEN')
 # ----------------------------
-if not N8N_WEBHOOK_URL:
-    raise ValueError("FATAL: N8N_WEBHOOK_URL environment variable is not set!")
+if not N8N_WEBHOOK_URL or CLAWCLOUD_WEBHOOK_URL:
+    raise ValueError("FATAL: N8N_WEBHOOK_URL or CLAWCLOUD environment variable is not set!")
 # 註冊 POST 路由，用於接收 LINE Webhook
 @app.post("/callback")
 # 使用 async 關鍵字，並從 Request 物件中讀取數據
@@ -37,7 +38,7 @@ async def line_webhook_forwarder(request: Request):
         # httpx.AsyncClient 適合單次發送
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                N8N_WEBHOOK_URL,
+                CLAWCLOUD_WEBHOOK_URL,
                 content=body, # FastAPI/httpx 使用 content 或 data 都可以傳輸原始 bytes
                 headers=forward_headers 
             )
