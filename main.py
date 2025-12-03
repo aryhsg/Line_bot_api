@@ -13,7 +13,7 @@ N8N_WEBHOOK_URL = os.environ.get('N8N_WEBHOOK_URL')
 CLAWCLOUD_WEBHOOK_URL = os.environ.get("CLAWCLOUD_WEBHOOK_URL")
 SECURITY_TOKEN = os.environ.get('N8N_SECURITY_TOKEN')
 # ----------------------------
-if not N8N_WEBHOOK_URL or CLAWCLOUD_WEBHOOK_URL:
+if not CLAWCLOUD_WEBHOOK_URL:
     raise ValueError("FATAL: N8N_WEBHOOK_URL or CLAWCLOUD environment variable is not set!")
 # 註冊 POST 路由，用於接收 LINE Webhook
 @app.post("/callback")
